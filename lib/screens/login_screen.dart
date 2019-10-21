@@ -73,7 +73,7 @@ void storeData(){
   var uuid = new Uuid();
   print("im printing uuid");
   print(uuid.v1());
-  Firestore.instance.collection('teacher').document()
+  Firestore.instance.collection('teacher').document('LqQZlKHwVxFRrwpcjPFB')
       .setData({ 'device_id':devicetoken,"email_id":emailController.text,
     "password":passwordController.text,"teacher_name":nameController.text,"teacher_id":uuid.v1()});
 

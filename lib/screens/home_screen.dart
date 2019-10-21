@@ -22,19 +22,20 @@ class HomeScreen extends StatefulWidget{
   HomeScreenState createState() =>HomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen>{
+class HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    studentAssignmentWidgets=listofUploadeddocuments();
+    listOfUploadedDocuments();
 
     //  Future.delayed(Duration(seconds: 2)).then((d){
     //listofUploadeddocuments();
     // });
   }
-  List<StudentAssignmentWidget> studentAssignmentWidgets=[];
+
+  List<StudentAssignmentWidget> studentAssignmentWidgets = [];
 
   @override
   Widget build(BuildContext context) {
@@ -63,26 +64,25 @@ class HomeScreenState extends State<HomeScreen>{
             child: Divider(color: Colors.purpleAccent,),
           ),
 
-          Column(children: studentAssignmentWidgets
-          )
+          Column(children: studentAssignmentWidgets)
         ],)
 
     );
   }
 
 
-  List<StudentAssignmentWidget> listofUploadeddocuments(){
-      List<StudentAssignmentWidget> listAssignmentUrl=[];
-      Firestore.instance
-          .collection('assignmentDownloadLinks').getDocuments().then((querySnapshot){
-            querySnapshot.documents.forEach((element){
-           //  print(element.data["student_name"]);
-              listAssignmentUrl.add(StudentAssignmentWidget(studentName:element.data["student_name"],
-                  assignmentUrl:element.data["assignmentDownloadUrl"],
-              teacherDeviceId: element.data["teacher_deviceId"],studentDeviceId: element.data["student_deviceId"],
-              assignmentName: element.data["assignment_name"],));
-            });
-      });
+//  List<StudentAssignmentWidget> listofUploadeddocuments(){
+//      List<StudentAssignmentWidget> listAssignmentUrl=[];
+//      Firestore.instance
+//          .collection('assignmentDownloadLinks').getDocuments().then((querySnapshot){
+//            querySnapshot.documents.forEach((element){
+//           //  print(element.data["student_name"]);
+//              listAssignmentUrl.add(StudentAssignmentWidget(studentName:element.data["student_name"],
+//                  assignmentUrl:element.data["assignmentDownloadUrl"],
+//              teacherDeviceId: element.data["teacher_deviceId"],studentDeviceId: element.data["student_deviceId"],
+//              assignmentName: element.data["assignment_name"],));
+//            });
+//      });
 //          .snapshots()
 //          .listen((data) =>
 //          data.documents.forEach((doc) =>
@@ -91,11 +91,31 @@ class HomeScreenState extends State<HomeScreen>{
 //                  assignmentUrl:doc["assignmentDownloadUrl"]))
 //
 //          ));
-      print("im printkkk");
-      print(listAssignmentUrl.length);
-      return listAssignmentUrl;
-    }
+//      print("im printkkk");
+//      print(listAssignmentUrl.length);
+//      return listAssignmentUrl;
+//    }
+//  }
+
+  String student1 ="swomya@123";
+  Future<List<StudentAssignmentWidget>> listOfUploadedDocuments()async{
+    List<StudentAssignmentWidget> listAssignmentUrl=[];
+   await Firestore.instance
+        .collection('assignmentDownloadLinks')
+        .where("student_deviceId", isEqualTo:"eGKhVGqD5-Q:APA91bHFSjGi58VC_CkTwnOKXn1ovnEMbCtygdhptN73LHAXN6FSBCr1Wo6l3IUtlh7XE6yEdN3xHNn2y1Zk3gzNoik_vRFDQBDkKWTzE778rUXRR1LZ9rVNQ0tebdJNAShlPuAbj3Fj")
+        .snapshots()
+        .listen((data) =>
+        data.documents.forEach((doc) =>
+            listAssignmentUrl.add(StudentAssignmentWidget(studentName:doc["student_name"],assignmentUrl:doc["assignmentDownloadUrl"]))
+
+        ));
+    print("im printing llll");
+    setState(() {
+      studentAssignmentWidgets=listAssignmentUrl;
+    });
+
+    print(listAssignmentUrl.length);
+    return listAssignmentUrl;
   }
-
-
+}
 

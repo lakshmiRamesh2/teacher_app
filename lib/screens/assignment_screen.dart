@@ -23,21 +23,23 @@ class AssignmentScreen extends StatefulWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(title: Text("Status Screen"),),
       body: Column(
+
         children: <Widget>[
           Text(widget.studentName),
-          Text(widget.assignmentName),
-          assignmentWidget(widget.assignmentName,widget.assignmentUrl),
+        //  Text(widget.assignmentName),
+        //  assignmentWidget(ass:widget.assignmentName,widget.assignmentUrl),
           Row(children: <Widget>[
             statusButton("BAD"),
             statusButton("GOOD"),
-            statusButton("EXLENT"),
+            statusButton("EXELENT"),
           ],)
         ],
       ),
     );
   }
-Widget assignmentWidget(String assignmentName,String studentUrl) {
+Widget assignmentWidget({String assignmentName=" ",String studentUrl}) {
   return Card(child: Column(
     children: <Widget>[
       Text(assignmentName),
@@ -51,6 +53,8 @@ String result;
 Widget statusButton(String resultStatus){
 
     return RaisedButton(
+      child:Text("resultStatus"),
+      color:Colors.green,
       onPressed: (){
         setState(() {
           result=resultStatus;

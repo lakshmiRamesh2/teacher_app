@@ -16,25 +16,25 @@ class StudentAssignmentWidget extends StatefulWidget{
   final String studentDeviceId;
   final String  assignmentName;
   final String teacherDeviceId;
-
-  StudentAssignmentWidget({this.assignmentUrl,this.studentName,this.studentDeviceId,this.assignmentName,this.teacherDeviceId});
-
-
-
-
+  StudentAssignmentWidget({this.assignmentUrl,this.studentName,this.studentDeviceId,
+    this.assignmentName,this.teacherDeviceId});
   StudentAssignmentWidgetState createState()=>StudentAssignmentWidgetState();
 }
-
 class StudentAssignmentWidgetState extends State<StudentAssignmentWidget>{
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap:(){
         Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => AssignmentScreen(),
+                        builder: (context) => AssignmentScreen(
+                          studentName: widget.studentName,
+                          studentDeviceId: widget.studentDeviceId,
+                          assignmentName: widget.assignmentName,
+                          assignmentUrl: widget.assignmentUrl,
+                          teacherDeviceId: "eGKhVGqD5-Q:APA91bHFSjGi58VC_CkTwnOKXn1ovnEMbCtygdhptN73LHAXN6FSBCr1Wo6l3IUtlh7XE6yEdN3xHNn2y1Zk3gzNoik_vRFDQBDkKWTzE778rUXRR1LZ9rVNQ0tebdJNAShlPuAbj3Fj",
+                        ),
                       ),
                     );
       } ,
