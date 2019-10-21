@@ -1,6 +1,7 @@
 
 
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import "package:teacher_app/api_manager/api_manager.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -21,11 +22,11 @@ class AssignmentScreen extends StatefulWidget {
   class AssignmentScreenState extends State<AssignmentScreen>{
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text("Status Screen"),),
+      appBar: AppBar(title: Text("Status Screen"),backgroundColor: Colors.purpleAccent,),
       body: Column(
-
+mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(widget.studentName),
         //  Text(widget.assignmentName),
@@ -34,7 +35,8 @@ class AssignmentScreen extends StatefulWidget {
             statusButton("BAD"),
             statusButton("GOOD"),
             statusButton("EXELENT"),
-          ],)
+          ],),
+          sendButton()
         ],
       ),
     );
@@ -52,14 +54,17 @@ String result;
 
 Widget statusButton(String resultStatus){
 
-    return RaisedButton(
-      child:Text("resultStatus"),
-      color:Colors.green,
-      onPressed: (){
-        setState(() {
-          result=resultStatus;
-        });
-      },
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: RaisedButton(
+        child:Text(resultStatus),
+        color:Colors.green,
+        onPressed: (){
+          setState(() {
+            result=resultStatus;
+          });
+        },
+      ),
     );
 }
 

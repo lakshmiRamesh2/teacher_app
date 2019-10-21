@@ -20,7 +20,7 @@ bool isPasswordFilled=true;
 
 @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     getToken();
   }
@@ -90,7 +90,6 @@ void storeData(){
   }
   void done(){
     print("tapped");
-
     print(nameController.text);
     if(nameController.text.isEmpty)
     {
@@ -155,12 +154,14 @@ void storeData(){
     });
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
+        print("i got notification in the on message");
 
       },
       onResume: (Map<String, dynamic> message) async {
-
+        print("i got notification in the on Resume");
       },
       onLaunch: (Map<String, dynamic> message) async {
+        print("i got message from on lunch");
       },
     );
   }

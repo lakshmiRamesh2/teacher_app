@@ -37,26 +37,30 @@ class ApiManager{
 final baseUrl = "https://fcm.googleapis.com/fcm/send";
 
 Future<dynamic> sendNotification({String teacherDeviceId,String studentName,String downloadUrl}) async {
+  print("+++++++++++++++++++++++++++++++++++++++++++++++");
   String url = baseUrl;
   Map<String, dynamic> bodyMap = {
-    "to": teacherDeviceId,
+    "content_available": true,
+    "priority": 'high',
+     "to":"f7tLPkeuPLA:APA91bG6z9W7bzBQSH_60X7G63hS2N11_PNUBmMkCy1X0SZ1dWePEVnDonbdCUw0_VD5UCgDIO2kdohmWATFqgrrRcAwziRfXHR6HdVvYJS12KMhdjRP41JcmJtJIdfZ2Dn2RbhEp4wW",
     "notification": {
       "title": studentName+" Sent you the assignment",
       "body": "Please download the document",
       "mutable_content": true,
       "sound": "Tri-tone"
-    }};
+    },
+  };
 
   http.Response response =
-  await makePostRequest(url:url,headers:{
+  await http.post(url,headers:{
     "content_type":"application/json",
     "Authorization":"key=AAAAeC6xfnQ:APA91bF0nsK9MDAOv7eLASg7GHxT2eL7Qxo7zoNujkK43cTUh1UVW4qjC5RCRrKFp2ulMlm2t-UyLDaiyM05cMzqlZ4IT3OjMgdqllTew_liPH81yhbYSBBP9_0uekyB54Y6Zm-ttPFf"
-  },body:json.encode(bodyMap));
+  },body:jsonEncode(bodyMap));
+  print(response.statusCode);
   if (response.statusCode == 200) {
+    print(response.statusCode);
     print("notification Sucessfully sent");
     return response.body;
   }
 }
-
-
 }

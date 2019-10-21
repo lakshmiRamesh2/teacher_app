@@ -6,6 +6,12 @@ import 'package:flutter/material.dart';
 import "package:http/http.dart"as http;
 import 'dart:io';
 import "package:teacher_app/screens/assignment_screen.dart";
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -54,8 +60,8 @@ class StudentAssignmentWidgetState extends State<StudentAssignmentWidget>{
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RaisedButton(onPressed: (){
-                      // _showDownloadurl();
-                      downloadUrl(widget.assignmentUrl);
+
+                      _launchURL(widget.assignmentUrl);
                     },child:Row(
                       children: <Widget>[
                         Icon(Icons.file_download,color: Colors.blue,),
@@ -70,6 +76,16 @@ class StudentAssignmentWidgetState extends State<StudentAssignmentWidget>{
         ),
       ),
     );
+  }
+
+
+  _launchURL( String url ) async {
+   // const url = 'https://flutter.dev';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   void _showDownloadurl() {
@@ -92,10 +108,33 @@ class StudentAssignmentWidgetState extends State<StudentAssignmentWidget>{
     );
   }
 
-  downloadUrl(String url)async{
-    final http.Response downlodedData=await http.get(url);
-    final Directory systemTempDir= Directory.systemTemp;
-    // downlodedData.bodyBytes
-    print(widget.assignmentUrl);
-  }
+//  downloadUrl(String url)async{
+//    final http.Response downlodedData=await http.get(url);
+//    final Directory systemTempDir= Directory.systemTemp;
+//    // downlodedData.bodyBytes
+//    print(widget.assignmentUrl);
+//  }
+
+//
+//  Future<void> downloadFile(String url) async {
+//
+//    final http.Response downloadData = await http.get(url);
+//    final Directory systemTempDir = Directory.systemTemp;
+//    final File tempFile = File('${systemTempDir.path}/tmp.jpg');
+//    if (tempFile.existsSync()) {
+//      await tempFile.delete();
+//    }
+//    await tempFile.create();
+//
+//    final StorageFileDownloadTask task = ref.writeToFile(tempFile);
+//    final int byteCount = (await task.future).totalByteCount;
+//    var bodyBytes = downloadData.bodyBytes;
+//    final String name = await ref.getName();
+//    final String path = await ref.getPath();
+//    print(
+//      'Success!\nDownloaded $name \nUrl: $url'
+//          '\npath: $path \nBytes Count :: $byteCount',
+//    );
+//  }
+
 }
