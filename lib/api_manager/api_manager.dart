@@ -36,13 +36,13 @@ class ApiManager{
 
 final baseUrl = "https://fcm.googleapis.com/fcm/send";
 
-Future<dynamic> sendNotification({String teacherDeviceId,String studentName,String downloadUrl}) async {
+Future<dynamic> sendNotification({String studentDeviceId,String studentName,String downloadUrl}) async {
   print("+++++++++++++++++++++++++++++++++++++++++++++++");
   String url = baseUrl;
   Map<String, dynamic> bodyMap = {
     "content_available": true,
     "priority": 'high',
-     "to":"f7tLPkeuPLA:APA91bG6z9W7bzBQSH_60X7G63hS2N11_PNUBmMkCy1X0SZ1dWePEVnDonbdCUw0_VD5UCgDIO2kdohmWATFqgrrRcAwziRfXHR6HdVvYJS12KMhdjRP41JcmJtJIdfZ2Dn2RbhEp4wW",
+     "to":studentDeviceId,
     "notification": {
       "title": studentName+" Sent you the assignment",
       "body": "Please download the document",

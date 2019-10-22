@@ -9,9 +9,9 @@ import 'package:teacher_app/api_manager/api_manager.dart';
 
 
 class HomeScreen extends StatefulWidget{
-
+final String teacherDeviceId;
   final String name;
-  HomeScreen({@required this.name});
+  HomeScreen({@required this.name,this.teacherDeviceId});
 
 
   @override
@@ -20,10 +20,12 @@ class HomeScreen extends StatefulWidget{
 
 class HomeScreenState extends State<HomeScreen> {
 
+  String teacherDeviceId;
   @override
   void initState() {
 
     super.initState();
+    teacherDeviceId=widget.teacherDeviceId;
     listOfUploadedDocuments();
 
   }
@@ -56,7 +58,7 @@ class HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Divider(color: Colors.purpleAccent,),
           ),
-                RaisedButton(onPressed: (){sendNotificationToTeacher();},child: Text("bbb"),),
+              //  RaisedButton(onPressed: (){sendNotificationToTeacher();},child: Text("send notification demo"),),
           Column(children: studentAssignmentWidgets)
         ],)
 
@@ -66,7 +68,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   sendNotificationToTeacher()
   {
-    ApiManager().sendNotification(studentName:"Hi you got status for assignment",teacherDeviceId:"f7tLPkeuPLA:APA91bG6z9W7bzBQSH_60X7G63hS2N11_PNUBmMkCy1X0SZ1dWePEVnDonbdCUw0_VD5UCgDIO2kdohmWATFqgrrRcAwziRfXHR6HdVvYJS12KMhdjRP41JcmJtJIdfZ2Dn2RbhEp4wW");
+    ApiManager().sendNotification(studentName:"Hi you got status for assignment",studentDeviceId:"f7tLPkeuPLA:APA91bG6z9W7bzBQSH_60X7G63hS2N11_PNUBmMkCy1X0SZ1dWePEVnDonbdCUw0_VD5UCgDIO2kdohmWATFqgrrRcAwziRfXHR6HdVvYJS12KMhdjRP41JcmJtJIdfZ2Dn2RbhEp4wW");
 
   }
   String student1 ="student1@123";
@@ -74,7 +76,7 @@ class HomeScreenState extends State<HomeScreen> {
 
   Future<List<StudentAssignmentWidget>> listOfUploadedDocuments()async{
     List<StudentAssignmentWidget> listAssignmentUrl=[];
-    Firestore.instance
+    await Firestore.instance
         .collection('assignmentDownloadLinks')
         .where("toview" ,isEqualTo:true)
         .snapshots()
@@ -83,7 +85,7 @@ class HomeScreenState extends State<HomeScreen> {
             listAssignmentUrl.add(StudentAssignmentWidget(studentName:doc["student_name"],
                 assignmentUrl:doc["assignmentDownloadUrl"],
               studentDeviceId:doc["student_deviceId"],
-              teacherDeviceId: doc["teacher_deviceId"],
+              teacherDeviceId: teacherDeviceId,
             ))
         ));
     print("im printing llll");

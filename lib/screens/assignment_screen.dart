@@ -70,7 +70,7 @@ Widget statusButton(String resultStatus){
 
 uploadStatusForCloud(){
   Firestore.instance.collection('assignmentstatus').document()
-      .setData({ 'assignment_name':widget.assignmentName,"assignment_status":result,
+      .setData({"assignment_status":result,
     "assignment_url":widget.assignmentUrl,"student_deviceId":widget.studentDeviceId,
     "teacher_devicceId":widget.teacherDeviceId});
 }
@@ -78,7 +78,7 @@ uploadStatusForCloud(){
 
   sendNotificationToTeacher()
   {
-    ApiManager().sendNotification(studentName:"Hi you got status for assignment",teacherDeviceId:widget.studentDeviceId);
+    ApiManager().sendNotification(studentName:"Hi you got status for assignment",studentDeviceId:widget.studentDeviceId);
 
   }
 

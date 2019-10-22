@@ -129,7 +129,8 @@ void storeData(){
        Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreen(name: nameController.text,),
+                        builder: (context) => HomeScreen(name: nameController.text,teacherDeviceId: devicetoken,),
+
                       ),
                     );
 
